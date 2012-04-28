@@ -1,6 +1,6 @@
 <?php
 
-namespace Eotvos\VersenyBundle\Entity;
+namespace Eotvos\EjtvBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 
@@ -25,7 +25,7 @@ class PostalcodeRepository extends EntityRepository
     public function getWithPrefix($prefix)
     {
         return $this->getEntityManager()
-            ->createQuery('SELECT pc.code, pc.name FROM Eotvos\VersenyBundle\Entity\Postalcode pc WHERE pc.code LIKE :prefix')
+            ->createQuery('SELECT pc.code, pc.name FROM Eotvos\EjtvBundle\Entity\Postalcode pc WHERE pc.code LIKE :prefix')
             ->setParameter('prefix', $prefix.'%')
             ->getResult()
             ;
@@ -43,7 +43,7 @@ class PostalcodeRepository extends EntityRepository
     public function findOneByCode($code)
     {
         return $this->getEntityManager()
-            ->createQuery('SELECT pc FROM Eotvos\VersenyBundle\Entity\Postalcode pc WHERE pc.code LIKE :prefix')
+            ->createQuery('SELECT pc FROM Eotvos\EjtvBundle\Entity\Postalcode pc WHERE pc.code LIKE :prefix')
             ->setParameter('prefix', $code.'%')
             ->getSingleResult()
             ;

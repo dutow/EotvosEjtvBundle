@@ -1,6 +1,6 @@
 <?php
 
-namespace Eotvos\VersenyBundle\Form\Type;
+namespace Eotvos\EjtvBundle\Form\Type;
 
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\FormInterface;
@@ -69,7 +69,7 @@ class PostalcodeType extends \Symfony\Component\Form\AbstractType
         if ($value) {
             $view->set('value', substr($value, 0, 4));
 
-            $pmp = $this->em->getRepository('\EotvosVersenyBundle:Postalcode');
+            $pmp = $this->em->getRepository('\EotvosEjtvBundle:Postalcode');
             $results = $pmp->getWithPrefix(substr($value, 0, 4));
             $view->set('cities', $results);
             $view->set('cities_selected', $value);

@@ -1,6 +1,6 @@
 <?php
 
-namespace Eotvos\VersenyBundle\Entity;
+namespace Eotvos\EjtvBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Contains information about a school.
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Eotvos\VersenyBundle\Entity\SchoolRepository")
+ * @ORM\Entity(repositoryClass="Eotvos\EjtvBundle\Entity\SchoolRepository")
  */
 class School
 {
@@ -271,9 +271,9 @@ class School
     /**
      * Adds one user.
      *
-     * @param Eotvos\VersenyBundle\Entity\User $user user to be registered to this school.
+     * @param Eotvos\EjtvBundle\Entity\User $user user to be registered to this school.
      */
-    public function addUser(\Eotvos\VersenyBundle\Entity\User $user)
+    public function addUser(\Eotvos\EjtvBundle\Entity\User $user)
     {
         $this->users[] = $user;
     }

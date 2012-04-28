@@ -1,6 +1,6 @@
 <?php
 
-namespace Eotvos\VersenyBundle\Entity;
+namespace Eotvos\EjtvBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * unique index.
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Eotvos\VersenyBundle\Entity\PostalcodeRepository")
+ * @ORM\Entity(repositoryClass="Eotvos\EjtvBundle\Entity\PostalcodeRepository")
  * 
  * @author    Zsolt Parragi <zsolt.parragi@cancellar.hu> 
  * @copyright 2012 Cancellar

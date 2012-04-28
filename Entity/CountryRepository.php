@@ -1,6 +1,6 @@
 <?php
 
-namespace Eotvos\VersenyBundle\Entity;
+namespace Eotvos\EjtvBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 

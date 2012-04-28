@@ -1,6 +1,6 @@
 <?php
 
-namespace Eotvos\VersenyBundle\Form\Type;
+namespace Eotvos\EjtvBundle\Form\Type;
 
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\FormInterface;
@@ -74,7 +74,7 @@ class SchoolSelectorType extends \Symfony\Component\Form\AbstractType
             $view->set('value', $value->getId());
         }
         if ($value) {
-            $pmp = $this->em->getRepository('\EotvosVersenyBundle:School');
+            $pmp = $this->em->getRepository('\EotvosEjtvBundle:School');
             $result = $pmp->findOneById((int) $value->getId());
             if ($result) {
                 $view->set('value_name', $result->getName().', '.$result->getCity());

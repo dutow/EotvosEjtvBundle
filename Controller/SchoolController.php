@@ -1,6 +1,6 @@
 <?php
 
-namespace Eotvos\VersenyBundle\Controller;
+namespace Eotvos\EjtvBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -36,7 +36,7 @@ class SchoolController extends Controller
         $q = $request->query->get('q');
         if($q) $prefix = $q;
         if(strlen($prefix)>=2){
-            $pmp = $this->getDoctrine()->getRepository('\EotvosVersenyBundle:School');
+            $pmp = $this->getDoctrine()->getRepository('\EotvosEjtvBundle:School');
             $results = $pmp->getWithPrefix($prefix);
         }else{
             $results = array();

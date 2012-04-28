@@ -1,6 +1,6 @@
 <?php
 
-namespace Eotvos\VersenyBundle\Command;
+namespace Eotvos\EjtvBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
@@ -9,7 +9,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Yaml\Parser;
 
-use Eotvos\VersenyBundle\Entity as Entity;
+use Eotvos\EjtvBundle\Entity as Entity;
 
 /**
  * Imports postal codes from a csv given by the only argument.
@@ -64,7 +64,7 @@ class PostalImportCommand extends ContainerAwareCommand
     {
 
         $em = $this->getContainer()->get('doctrine')->getEntityManager();
-        $rm = $em->getRepository('EotvosVersenyBundle:Postalcode');
+        $rm = $em->getRepository('EotvosEjtvBundle:Postalcode');
 
         $csvfn = $input->getArgument('csv');
 

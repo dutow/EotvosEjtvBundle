@@ -1,6 +1,6 @@
 <?php
 
-namespace Eotvos\VersenyBundle\Entity;
+namespace Eotvos\EjtvBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 
@@ -22,7 +22,7 @@ class SchoolRepository extends EntityRepository
     public function getWithPrefix($prefix)
     {
         return $this->getEntityManager()
-            ->createQuery('SELECT s.id, s.omid, s.name, s.city, s.address, s.postalcode FROM Eotvos\VersenyBundle\Entity\School s WHERE s.name LIKE :prefix AND (s.eductype LIKE :educ1 OR s.eductype LIKE :educ2) ORDER BY s.name ASC')
+            ->createQuery('SELECT s.id, s.omid, s.name, s.city, s.address, s.postalcode FROM Eotvos\EjtvBundle\Entity\School s WHERE s.name LIKE :prefix AND (s.eductype LIKE :educ1 OR s.eductype LIKE :educ2) ORDER BY s.name ASC')
             ->setParameter('prefix', $prefix.'%')
             ->setParameter('educ1', '%gimnázium%')
             ->setParameter('educ2', '%szakköz')

@@ -1,6 +1,6 @@
 <?php
 
-namespace Eotvos\VersenyBundle\Command;
+namespace Eotvos\EjtvBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
@@ -8,7 +8,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-use Eotvos\VersenyBundle\Entity as Entity;
+use Eotvos\EjtvBundle\Entity as Entity;
 
 /**
  * Downloads the hungarian school list from kir.hu.

@@ -1,6 +1,6 @@
 <?php
 
-namespace Eotvos\VersenyBundle\Controller;
+namespace Eotvos\EjtvBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -29,7 +29,7 @@ class PostalcodeController extends Controller
      */
     public function ajaxQueryAction($code)
     {
-        $pmp = $this->getDoctrine()->getRepository('\EotvosVersenyBundle:Postalcode');
+        $pmp = $this->getDoctrine()->getRepository('\EotvosEjtvBundle:Postalcode');
         $results = $pmp->getWithPrefix($code);
         $response = new Response(json_encode(array('prefix' => $code, 'results' => $results)));
 
