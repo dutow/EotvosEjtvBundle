@@ -18,11 +18,13 @@ use Doctrine\ORM\Mapping as ORM;
  * @copyright 2012 Cancellar
  * @license   MIT License (http://www.opensource.org/licenses/mit-license.php)
  * @version   Release: v0.1
+ *
+ * @todo create a county database
  */
 class Postalcode
 {
     /**
-     * @var integer $id
+     * @var integer $id integer id of the record
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -31,28 +33,28 @@ class Postalcode
     private $id;
 
     /**
-     * @var string $code
+     * @var string $code postalcode
      *
      * @ORM\Column(name="code", type="string", length=5,unique=true)
      */
     private $code;
 
     /**
-     * @var string $name
+     * @var string $name name of the associated city
      *
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
     /**
-     * @var boolean $chieftown
+     * @var boolean $chieftown is this the chieftown of the county?
      *
      * @ORM\Column(name="chieftown", type="boolean")
      */
     private $chieftown;
 
     /**
-     * @var integer $countyId
+     * @var integer $countyId id of the county which it belongs to
      *
      * @ORM\Column(name="county_id", type="integer")
      */
@@ -60,7 +62,7 @@ class Postalcode
 
 
     /**
-     * Get id
+     * Returns the id of the record
      *
      * @return integer 
      */
@@ -70,7 +72,7 @@ class Postalcode
     }
 
     /**
-     * Set code
+     * Sets the postal code
      *
      * @param string $code postsal code
      */
@@ -80,7 +82,7 @@ class Postalcode
     }
 
     /**
-     * Get code
+     * Gets the five character postal code
      *
      * @return string 
      */
@@ -90,7 +92,17 @@ class Postalcode
     }
 
     /**
-     * Set name
+     * Gets the classically displayed four character postal code
+     *
+     * @return string 
+     */
+    public function getCode4()
+    {
+        return substr($this->code, 0, 4);
+    }
+
+    /**
+     * Sets the city name
      *
      * @param string $name name of the city
      */
@@ -100,7 +112,7 @@ class Postalcode
     }
 
     /**
-     * Get name
+     * Gets the city name
      *
      * @return string 
      */
@@ -110,7 +122,7 @@ class Postalcode
     }
 
     /**
-     * Set chieftown
+     * Sets if this entry is the chieftown of a region
      *
      * @param boolean $chieftown true if it is the chief town of the region
      */
@@ -120,7 +132,7 @@ class Postalcode
     }
 
     /**
-     * Get chieftown
+     * Tells if this is a chieftown
      *
      * @return boolean 
      */
@@ -130,7 +142,7 @@ class Postalcode
     }
 
     /**
-     * Set countyÃid
+     * Set countyId
      *
      * @param integer $countyId id of the region
      */
@@ -149,3 +161,4 @@ class Postalcode
         return $this->countyId;
     }
 }
+

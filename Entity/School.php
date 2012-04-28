@@ -5,10 +5,16 @@ namespace Eotvos\EjtvBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Contains information about a school.
+ * Contains information about a hungarian school.
+ *
+ * Normally schools are uniquelly identified by their OMID, but we need to monitor if a school's name is changed
+ * during the years. Because of this, we have our own id, and omid is just a simple attribute of the entity, along
+ * with it's active flag.
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Eotvos\EjtvBundle\Entity\SchoolRepository")
+ *
+ * @todo use postalcode entity instead of strigs for postal code and city
  */
 class School
 {
@@ -76,12 +82,6 @@ class School
      * @ORM\Column(name="active", type="boolean", nullable=false)
      */
     private $active;
-
-    /**
-     *
-     * @ORM\OneToMany(targetEntity="User", mappedBy="school_id")
-     **/
-    private $users;
 
     /**
      * Get id
@@ -202,7 +202,7 @@ class School
      *
      * @param string $eductype comma separated list of the education levels of the school
      */
-    public function setEductype($eductype)
+    public function setEducationType($eductype)
     {
         $this->eductype = $eductype;
     }
@@ -212,7 +212,7 @@ class School
      *
      * @return string 
      */
-    public function getEductype()
+    public function getEducationType()
     {
         return $this->eductype;
     }
@@ -264,28 +264,7 @@ class School
      */
     public function __construct()
     {
-        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-
-    /**
-     * Adds one user.
-     *
-     * @param Eotvos\EjtvBundle\Entity\User $user user to be registered to this school.
-     */
-    public function addUser(\Eotvos\EjtvBundle\Entity\User $user)
-    {
-        $this->users[] = $user;
-    }
-
-    /**
-     * Get users
-     *
-     * @return Doctrine\Common\Collections\Collection 
-     */
-    public function getUsers()
-    {
-        return $this->users;
-    }
 }
 
