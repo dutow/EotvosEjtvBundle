@@ -1,8 +1,8 @@
 <?php
 
-namespace Eotvos\EjtvBundle\Form\Type;
+namespace Eotvos\VersenyBundle\Form\Type;
 
-use Eotvos\EjtvBundle\Entity as Entity;
+use Eotvos\VersenyBundle\Entity as Entity;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
@@ -47,7 +47,7 @@ class UserType extends AbstractType
 
         $builder->add('lastname', 'text', array('label' => 'Vezetéknév*'));
 
-        $builder->add('country', 'entity', array('label' => 'Ország*', 'class' => 'EotvosEjtvBundle:Country'));
+        $builder->add('country', 'entity', array('label' => 'Ország*', 'class' => 'EotvosVersenyBundle:Country'));
 
         $builder->add(
             'postalcode',
@@ -110,7 +110,7 @@ class UserType extends AbstractType
             ;
 
         $builder->add('sections', 'entity', array(
-            'class' => 'Eotvos\EjtvBundle\Entity\Section',
+            'class' => 'Eotvos\VersenyBundle\Entity\Section',
             'multiple' => true,
             'expanded' => true,
             'required' => true,
@@ -144,7 +144,7 @@ class UserType extends AbstractType
     public function getDefaultOptions(array $options)
     {
         return array(
-            'data_class' => 'Eotvos\EjtvBundle\Entity\User',
+            'data_class' => 'Eotvos\VersenyBundle\Entity\User',
         );
     }
 
