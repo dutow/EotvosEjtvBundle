@@ -9,7 +9,7 @@
  * @license http://www.opensource.org/licenses/BSD-2-Clause
  */
 
-namespace Eotvos\VersenyBundle\Controller;
+namespace Eotvos\EjtvBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
