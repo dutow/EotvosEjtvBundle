@@ -1,0 +1,9 @@
+{% if not finalized %}
+<p>
+A fordulóban egy kvízt kell kitöltened. A kitöltés a linkre kattintva indul, ami után {{ spec.time }} időd lesz a befejezésére. A kitöltés elkezdése után az időzítőt nem lehet szüneteltetni.
+</p>
+<p>
+</p>
+{% else %}
+A kitöltési időd lejárt.
+{% endif %}

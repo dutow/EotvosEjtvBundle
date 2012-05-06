@@ -1,0 +1,60 @@
+{% extends 'EotvosVersenyBundle::base.html.twig'  %}
+{% set active_menu = "szekciok" %}
+{% set threecol = false %}
+{% set fbbox = false %}
+
+{% block title %}
+Informatika Forduló Statisztika
+{% endblock %}
+
+{% block body %}
+<h2>Statisztika - feladatok</h2>
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+{% for k,l in st %}
+      <th>{{ k }} ({{ l['mmm'] }})</th>
+{% endfor %}
+    </tr>
+  </thead>
+{% for i in 1..10 %}
+    <tr>
+      <td style="text-align: center;">{{ i }}</td>
+{% for k,l in st %}
+      <td style="font-size: 10px;">{{ l['children'][i]['summ'] }}</td>
+{% endfor %}
+    </tr>
+{% endfor %}
+</table>
+<p></p>
+<h2>Pontok</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Név</th>
+{% for k,l in st %}
+      <th>{{ k }}</th>
+{% endfor %}
+      <th>Hiba</th>
+      <th>Szum</th>
+    </tr>
+  </thead>
+  <tbody>
+{% for k,ur in ua %}
+  <tr>
+    <td>{{ ur['id'] }}</td>
+{% for k,l in st %}
+    <td>{{ ur[k] }}</td>
+{% endfor %}
+    <td>{{ ur['usererr'] }}</td>
+    <td>{{ ur['points'] }}</td>
+  </tr>
+{% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
+
+{% block rbody %}
+{% endblock %}

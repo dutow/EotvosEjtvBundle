@@ -1,0 +1,26 @@
+{% extends 'EotvosVersenyBundle::base.html.twig'  %}
+{% set active_menu = "jelentkezes" %}
+{% set threecol = true %}
+{% set fbbox = false %}
+
+{% block title %}
+Teszteset feltöltése
+{% endblock %}
+
+{% form_theme form 'EotvosVersenyBundle:User:form.html.twig' %}
+
+{% block body %}
+<h2>Teszteset feltöltése</h2>
+<form method="post" {{ form_enctype(form) }}>
+  <fieldset class="choices">
+    <legend>Teszteredmény {{ task }}{{ taskid }}</legend>
+    {{ form_errors(form.file) }}
+    {{ form_widget(form.file) }}
+  </fieldset>
+  {{ form_rest(form) }}
+  <input type="submit" value="Feltöltöm" class="button" />
+</form>
+{% endblock %}
+
+{% block rbody %}
+{% endblock %}

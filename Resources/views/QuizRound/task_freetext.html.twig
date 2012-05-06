@@ -1,0 +1,8 @@
+<div class="info">
+{% if task.infotext != "" %}
+{{ task.infotext|markdown }}
+{% endif %}
+</div>
+<div class="text">
+{{ task.text|markdown }}
+</div>

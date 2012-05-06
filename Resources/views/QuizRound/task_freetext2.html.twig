@@ -1,0 +1,11 @@
+<div class="info">
+{{ task.infotext|markdown }}
+</div>
+<div class="text">
+{{ task.text|markdown }}
+</div>
+{% for i,l in task.lines %}
+<p style="width: 640px;">
+<input type="text" style="float: right; width: 200px;" name="{{ taskk }}_{{ i }}" {% if data[ taskk ~ "_" ~ i ] is defined %}value="{{ data[ taskk ~ "_" ~ i ] }}"{% endif %}/> {{ l }}
+</p>
+{% endfor %}

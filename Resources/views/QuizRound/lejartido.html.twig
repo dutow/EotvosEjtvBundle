@@ -1,0 +1,10 @@
+{% extends 'EotvosVersenyBundle::base.html.twig'  %}
+{% set active_menu = 'szekciok' %}
+{% set threecol = true %}
+{% set fbbox = false %}
+{% block title %}
+  {{ section.page.title }} Szekció
+{% endblock %}
+{% block body %}
+<h3>Lejárt az időd!</h3>
+{% endblock %}

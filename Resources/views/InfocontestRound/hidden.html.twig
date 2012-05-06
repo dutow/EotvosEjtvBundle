@@ -1,0 +1,27 @@
+{% extends 'EotvosVersenyBundle::base.html.twig'  %}
+{% set active_menu = "jelentkezes" %}
+{% set threecol = true %}
+{% set fbbox = false %}
+
+{% block title %}
+Ez egy rejtett feladat
+{% endblock %}
+
+{% block body %}
+<h2>Rejtelmek</h2>
+{{ message|markdown }}
+{% endblock %}
+
+{% block rbody %}
+{% if section is defined %}
+<input type="text" id="hsvv" />
+<input type="button" id="hsbt" value="Mehet" />
+<script>
+$(document).ready(function(){
+  $('#hsbt').click(function(){
+    document.location.href = '{{ url('competition_round_infocontest_hidden_answer', { 'term' : 2011 , 'hname':  hname, 'sectionSlug' : section.slug, 'roundSlug': round.slug }) }}/'  + $('#hsvv').val();
+  });
+});
+</script>
+{% endif %}
+{% endblock %}

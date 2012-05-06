@@ -1,0 +1,12 @@
+{% if not finalized %}
+<p>
+A fordulóban célotok egy {{ spec.name | lower }} megírása, majd azt az "Esszé feltöltés" menüpont segítségével eljuttatni a bírálóknak. A feltöltés után még lehetőségetek van módosítani a fájt a verseny végéig, vagy amíg a "Véglegesítés"
+menüpontot nem választjátok, amely után már nincs lehetőségetek dolgozatotok szerkesztésére. A forduló végén az utolsó feltöltött verzió automatán véglegesedik.
+</p>
+
+<p>
+Az elkészült {{ spec.name | lower }}t {{ spec.filetypes|join(', ')|upper }} formátumokban tölthetitek fel. A feltöltendő dokumentum, pontosan egy fájlból állhat, és maximális mérete {{ spec.maxfilesize }} KiB lehet.
+</p>
+{% else %}
+Esszé véglegesítve.
+{% endif %}

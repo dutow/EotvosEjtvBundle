@@ -1,0 +1,113 @@
+{% extends 'EotvosVersenyBundle::base.html.twig'  %}
+{% set active_menu = 'szekciok' %}
+{% set threecol = true %}
+{% set fbbox = false %}
+
+{% block title %}
+  {{ section.page.title }} Szekció
+{% endblock %}
+
+{% block body %}
+  <h2>{{ section.page.title }} Szekció - {{ round.page.title }} - Feltöltés</h2>
+<p>
+Ezen az oldalon  feltöltheted a fordulóhoz tartozó pályaművedet, aminek a következő követelményeknek kell megfelelnie:
+</p>
+<p>
+<ul>
+  <li>Megengedett fájltípusok: {{ config.filetypes|join(", ")|upper }}</li>
+  <li>Maximum fájlméret: {{ config.maxfilesize }} KiB</li>
+</ul>
+<p>
+Kérjük, a pályaműbe ne írd bele a neved, hanem az azonosítódat használd. Azonosítód: {{ app.user.uniqueIdentifier }}
+</p>
+{% if not categories is empty %}
+<form method="post" action="{{ url('competition_round_upd_flashupload', { 'year' : 2011, 'sectionSlug': section.page.slug, 'roundSlug': round.page.slug, 'securityToken': token.token }) }}">
+Feladat: <select id="category">
+<option></option>
+{% for cat in categories %}
+<option value="{{ cat }}">{{ cat }}</option>
+{% endfor %}
+</select>
+</form>
+{% endif %}
+<div id="flashProgress">
+<span class="progress"></span>
+<span class="percent">0%</span>
+</div>
+<span id="uplflash" > </span>
+<script type="text/javascript">
+var swfu;
+function fileDialogComplete(numFilesSelected, numFilesQueued) {
+    var params = { "category": $('#category').val() };
+    swfu.setPostParams(params);
+  swfu.startUpload();
+}
+function uploadSuccess(file, serverData) {
+    $('#flashProgress .percent').html('FELTÖLTÉS SIKERES');
+    $('#flashProgress .progress').width(400);
+    location.href = '{{ url('competition_round_upd_list', { 'year' : 2011, 'sectionSlug': section.page.slug, 'roundSlug': round.page.slug }) }} ';
+}
+function uploadFail(file, errorCode, message) {
+    $('#flashProgress .percent').html('FELTÖLTÉSI HIBA');
+    $('#flashProgress .progress').width(2);
+}
+function uploadProgress(file, bytesLoaded, bytesTotal) {
+  try {
+    var percent = Math.ceil((bytesLoaded / bytesTotal) * 100);
+
+    $('#flashProgress .percent').html(percent + '%');
+    $('#flashProgress .progress').width(percent*4);
+  } catch (ex) {
+    alert(ex);
+  }
+}
+$(document).ready(function(){
+  $('#category').change(function(){
+    var params = { "category": $(this).val() };
+    swfu.setPostParams(params);
+  });
+  swfu = new SWFUpload({
+    upload_url : "{{ url('competition_round_upd_flashupload', { 'year' : 2011, 'sectionSlug': section.page.slug, 'roundSlug': round.page.slug, 'securityToken': token.token }) }}",
+    flash_url : "{{ asset('bundles/eotvosverseny/flash/swfupload.swf') }}",
+
+    file_size_limit : "{{ config.maxfilesize }} KB",
+    file_types : "*.{{ config.filetypes|join(";*.")|lower }}",
+    file_types_description : "Dokumentumok",
+    file_upload_limit : "0",
+    file_queue_limit : "1",
+
+    button_image_url  : "{{ asset('bundles/eotvosverseny/images/swfupload.png') }}",
+    button_placeholder_id : "uplflash",
+    button_width: 61,
+    button_height: 22,
+
+    file_dialog_complete_handler : fileDialogComplete,
+
+    file_post_name: "form[file]",
+
+    custom_settings: {
+      progressTarget: "flashProgress"
+    },
+
+    upload_progress_handler: uploadProgress,
+    upload_success_handler : uploadSuccess,
+    upload_error_handler : uploadFail
+  });
+});
+</script>
+{% endblock %}
+
+{% block rbody %}
+  {% include 'EotvosVersenyBundle:Competition:section_sidebar.html.twig' with { 'page' : section.page } %}
+{% endblock %}
+
+{% block breadcrumb %}
+{% if page is defined %}
+<ul>
+  {% for item in page.getParentList() %}
+    <li>&nbsp;»&nbsp;<a href="{{ item | ecvurl }}">{{ item.title }}</a></li>
+  {% endfor %}
+    <li>&nbsp;»&nbsp;<a href="#">Feltöltés</a></li>
+</ul>
+{% endif %}
+{% endblock %}

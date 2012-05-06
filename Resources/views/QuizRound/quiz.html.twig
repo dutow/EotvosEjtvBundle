@@ -1,0 +1,73 @@
+{% extends 'EotvosVersenyBundle::base.html.twig'  %}
+{% set active_menu = 'szekciok' %}
+{% set threecol = true %}
+{% set fbbox = false %}
+{% block title %}
+  {{ section.page.title }} Szekció
+{% endblock %}
+
+{% block rbody %}
+  {% include 'EotvosVersenyBundle:Competition:section_sidebar.html.twig' with { 'page' : section.page } %}
+{% endblock %}
+
+{% block breadcrumb %}
+{% if page is defined %}
+<ul>
+  {% for item in page.getParentList() %}
+    <li>&nbsp;»&nbsp;<a href="{{ item | ecvurl }}">{{ item.title }}</a></li>
+  {% endfor %}
+    <li>&nbsp;»&nbsp;<a href="#">Véglegesítés</a></li>
+</ul>
+{% endif %}
+{% endblock %}
+
+{% block body %}
+  <h2>{{ config.name }}</h2>
+  <div class="qstatus"><span>MENTVE</span> - <a href="#">mentsünk még egyszer</a></div>
+  <span id="timeStill"></span>
+  <div class="tabs">
+{% for k, t in config.tasks %}
+    <div class="tab"><span>{{ k + 1 }}</span></div>
+{% endfor %}
+    <div style="clear: both;"></div>
+  </div>
+  <form method="post" action="asdf" id="qform">
+{% for k, task in config.tasks %}
+  <div class="feladat" id="feladat{{ k }}">
+    <h3>{{ task.name }}</h3>
+    {% include 'EotvosVersenyBundle:QuizRound:task_' ~ task.type ~ '.html.twig' with { 'task': task, 'taskk' : k  } %}
+  </div>
+{% endfor %}
+  </form>
+<script type="text/javascript">
+function saveForm(){
+  $('.qstatus span').text('MENTÉS ALATT');
+  $.post('{{ url('competition_round_quiz_submit', { 'term': 2011, 'roundSlug': round.page.slug, 'sectionSlug': section.page.slug } ) }}', $('#qform').serialize(), function(data){
+    if(data.success){
+      $('.qstatus span').text('MENTVE');
+    }else{
+      $('.qstatus span').text('SIKERTELEN MENTÉS');
+    }
+  });
+}
+$(document).ready(function(){
+  function changeTo(id){
+    $('.feladat').hide();
+    $('#feladat'+(id-1)).show();
+  }
+  $('.tab').click(function(){
+    changeTo($(this).text());
+  });
+  changeTo('1');
+  $('#timeStill').countdown({until: new Date({{ until|date("Y, m-1, d, H, i, s") }}), format: 'MS', 'compact': true, description: ''});
+
+  $('form :input').change(function(){
+    saveForm();
+  });
+  $('.qstatus a').click(function(){
+    saveForm();
+    return false;
+  });
+});
+</script>
+{% endblock %}

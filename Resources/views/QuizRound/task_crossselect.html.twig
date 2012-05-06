@@ -1,0 +1,91 @@
+<div class="info">
+{% if task.infotext != "" %}
+{{ task.infotext|markdown }}
+{% endif %}
+</div>
+<div class="text">
+{{ task.text|markdown }}
+</div>
+<div class="crosser" id="t{{ taskk }}_sorter">
+  <div class="crossli cross_leftblock">
+  <ul>
+  {% for k,ls in task.leftside %}
+    <li>{{ ls }}<input type="hidden" name="{{ taskk }}_{{ k }}" class="re{{ k }}" id="t{{ taskk }}_{{ k }}" {% if data[ taskk ~ "_" ~ k ] is defined %}value="{{ data[ taskk ~ "_" ~ k ] }}"{% endif %} /></li>
+  {% endfor %}
+  </ul>
+  </div>
+  <div class="crossli dropli cross_middleblock">
+  <ul>
+  {% for k,rs in task.rightside %}
+    {% for kk,rrs in task.rightside %}
+      {% if data[ taskk ~ '_' ~ k ] is defined and data[ taskk ~ '_' ~ k ] == ( kk ~ ".") %}
+        <li class="draggable" id="re{{ kk }}">{{ rrs }}</li>
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
+  </ul>
+  </div>
+  <div class="crossli dropli cross_rightblock">
+  <ul>
+  {% for k,rs in task.rightside %}
+    {% set found = false %}
+    {% for kk,rrs in task.rightside %}
+      {% if data[ taskk ~ '_' ~ kk ] is defined and data[ taskk ~ '_' ~ kk ] == ( k ~ ".") %}
+        {% set found = true %}
+      {% endif %}
+    {% endfor %}
+    {% if not found %}
+      <li class="draggable" id="re{{ k }}">{{ rs }}</li>
+    {% endif %}
+  {% endfor %}
+  </ul>
+  </div>
+</div>
+<script type="text/javascript">
+
+  var userAgent = navigator.userAgent.toLowerCase();
+  if(userAgent.match(/firefox/)) {
+    function dropstart(event,ui){
+      ui.item.css('margin-top', $(window).scrollTop() ); 
+    }
+    function dropbefstop(event,ui){
+      ui.item.css('margin-top', 0 );
+    }
+  }else{
+    function dropstart(event,ui){
+    }
+    function dropbefstop(event,ui){
+    }
+  }
+
+  $(function() {
+    $( "#t{{ taskk }}_sorter .cross_rightblock ul" ).sortable({
+      connectWith: "ul",
+      start: function(event,ui){ dropstart(event,ui); },
+      beforeStop:  function(event,ui){ dropbefstop(event,ui); }
+    });
+    $( "#t{{ taskk }}_sorter .cross_middleblock ul" ).sortable({
+      connectWith: "ul",
+      start: function(event,ui){ dropstart(event,ui); },
+      beforeStop:  function(event,ui){ dropbefstop(event,ui); },
+      update: function(event, ui){
+        var index = ui.item.index();
+        var records = []
+        $('#t{{ taskk }}_sorter .cross_middleblock li').each(function(){
+          records.push($(this).attr('id'));
+        });
+        var i = 0;
+        $('#t{{ taskk }}_sorter .cross_leftblock input').each(function(){
+          var at = $(this).attr('class').replace('re', '');
+          if(records[at] != undefined){
+            $(this).val(records[at].replace('re', '')+'.');
+          }else{
+            $(this).val("");
+          }
+          i = i + 1;
+        });
+        saveForm();
+      }
+    });
+  });
+</script>

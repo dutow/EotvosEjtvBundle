@@ -1,0 +1,17 @@
+<div class="info">
+{{ task.infotext|markdown }}
+</div>
+<div class="text">
+{{ task.text|markdown }}
+</div>
+
+{% for k,sel in task.subtasks %}
+<div class="selectblock">{% set key = (taskk ~ '_' ~ k) %}
+  <h4>{{ sel.name }}</h4>
+  <div><input type="radio" name="{{ taskk }}_{{ k }}" value="" {% if data[key] is not defined %}checked="checked"{% endif %}> -</div>
+    {% for selo in sel.choices %}
+  <div><input type="radio" name="{{ taskk }}_{{ k }}" value="{{ selo }}" {% if data[key] is defined and data[key]==selo %}checked="checked"{% endif %}> {{ selo }}</div>
+    {% endfor %}
+</div>
+{% endfor %}
+

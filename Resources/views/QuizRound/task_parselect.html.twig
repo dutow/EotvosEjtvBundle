@@ -1,0 +1,63 @@
+<div class="info">
+{{ task.infotext|markdown }}
+</div>
+<div class="text">
+{{ task.text|markdown }}
+</div>
+<div class="crosser" id="t{{ taskk }}_sorter">
+  <div class="crossli dropli cross_long">
+{% set size = task.leftside|length + task.rightside|length %}
+{% set rits = 0 %}
+  <ul>
+  {% for i in 1..size %}
+    {% set found = false %}
+    {% for k,v in task.rightside %}
+      {% if data[ taskk ~ '_' ~ k ] == (i ~ '.') %}
+        <li class="draggable" id="l{{ taskk }}_{{ i }}"><input type="hidden" name="{{ taskk }}_{{ k }}" value="{{ i }}." readonly="readonly" /> {{ task.rightside[ k ]|raw }}</li>
+        {% set rits = rits + 1 %}
+        {% set found = true %}
+      {% endif %}
+    {% endfor %}
+    {% if not found %}
+      <li class="static" id="l{{ taskk }}_{{ i }}">{{ task.leftside[i-rits-1]|raw }}</li>
+    {% endif %}
+  {% endfor %}
+  </ul>
+  </div>
+</div>
+<script type="text/javascript">
+
+  var userAgent = navigator.userAgent.toLowerCase();
+  if(userAgent.match(/firefox/)) {
+    function dropstart(event,ui){
+      ui.item.css('margin-top', $(window).scrollTop() ); 
+    }
+    function dropbefstop(event,ui){
+      ui.item.css('margin-top', 0 );
+    }
+  }else{
+    function dropstart(event,ui){
+    }
+    function dropbefstop(event,ui){
+    }
+  }
+
+  $(function() {
+    $( "#t{{ taskk }}_sorter .cross_long ul" ).sortable({
+      connectWith: "ul",
+      start: function(event,ui){ dropstart(event,ui); },
+      beforeStop:  function(event,ui){ dropbefstop(event,ui); },
+      cancel: "li.static",
+      update: function(event,ui){
+          var i = 0;
+          $('#t{{taskk}}_sorter li').each(function(){
+            i = i + 1;
+            if($(this).attr('class')=='draggable'){
+              $(this).children('input').val(i+'.');
+            }
+          });
+          saveForm();
+      }
+    });
+  });
+</script>
