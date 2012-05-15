@@ -1,0 +1,14 @@
+
+services:
+
+  eotvos.versenyr.roundtype.quiz:
+    class: Eotvos\EjtvBundle\RoundType\QuizType
+    tags:
+      - { name: eotvos.versenyr.roundtype }
+    calls:
+      - [ setContainer, [@service_container] ]
+
+  eotvos.versenyr.round.quizj:
+    class: Eotvos\EjtvBundle\Controller\QuizRoundController
+    calls:
+      - [ setContainer, [@service_container] ]
