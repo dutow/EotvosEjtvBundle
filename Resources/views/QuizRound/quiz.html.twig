@@ -1,4 +1,4 @@
-{% extends 'EotvosVersenyBundle::base.html.twig'  %}
+{% extends 'EotvosVersenyrBundle::base.html.twig'  %}
 {% set active_menu = 'szekciok' %}
 {% set threecol = true %}
 {% set fbbox = false %}
@@ -6,8 +6,11 @@
   {{ section.page.title }} Szekció
 {% endblock %}
 
+{% block headscripts %}
+{% endblock %}
+
 {% block rbody %}
-  {% include 'EotvosVersenyBundle:Competition:section_sidebar.html.twig' with { 'page' : section.page } %}
+  {% include 'EotvosVersenyrBundle:Competition:section_sidebar.html.twig' with { 'page' : section.page } %}
 {% endblock %}
 
 {% block breadcrumb %}
@@ -35,7 +38,7 @@
 {% for k, task in config.tasks %}
   <div class="feladat" id="feladat{{ k }}">
     <h3>{{ task.name }}</h3>
-    {% include 'EotvosVersenyBundle:QuizRound:task_' ~ task.type ~ '.html.twig' with { 'task': task, 'taskk' : k  } %}
+    {% include 'EotvosEjtvBundle:QuizRound:task_' ~ task.type ~ '.html.twig' with { 'task': task, 'taskk' : k  } %}
   </div>
 {% endfor %}
   </form>

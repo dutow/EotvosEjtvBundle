@@ -135,6 +135,9 @@ class QuizRoundController extends ContainerAware
         $uRep = $this->container->get('doctrine')->getRepository('\EotvosVersenyrBundle:User');
         $writer = $uRep->findOneById($uid);
 
+        $termRec = $this->container->get('doctrine')->getRepository('EotvosVersenyrBundle:Term')
+            ->findOneByName($term);
+
         $tpRep = $this->container->get('doctrine')->getRepository('\EotvosVersenyrBundle:TextPage');
 
         $dEm = $this->container->get('doctrine')->getEntityManager();
@@ -206,7 +209,8 @@ class QuizRoundController extends ContainerAware
             'writer' => $writer,
             'round' => $roundRec->getRound(),
             'section' => $sectionRec->getSection(),
-            'until' => $time_until
+            'until' => $time_until,
+            'term' => $termRec,
         );
     }
 
@@ -227,6 +231,9 @@ class QuizRoundController extends ContainerAware
         if(!$this->container->get('security.context')->isGranted('ROLE_USER')){
             throw new AccessDeniedException('Az oldal eléréséhez be kell jelentkezned!');
         }
+
+        $termRec = $this->container->get('doctrine')->getRepository('EotvosVersenyrBundle:Term')
+            ->findOneByName($term);
 
         $tpRep = $this->container->get('doctrine')->getRepository('\EotvosVersenyrBundle:TextPage');
 
@@ -312,7 +319,8 @@ class QuizRoundController extends ContainerAware
             'data' => $data,
             'round' => $roundRec->getRound(),
             'section' => $sectionRec->getSection(),
-            'until' => $time_until
+            'until' => $time_until,
+            'term' => $termRec,
         );
     }
 

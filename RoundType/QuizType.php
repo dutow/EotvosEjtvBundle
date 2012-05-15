@@ -26,6 +26,9 @@ class QuizType
             return array();
         }
 
+        $term = $round->getTerm()->getName();
+        $section = $round->getSection();
+
         $sr = $this->container->get('doctrine')->getRepository('EotvosVersenyrBundle:Submission');
 
         $config = json_decode($round->getConfig());
@@ -40,7 +43,7 @@ class QuizType
             }
         }
 
-        if(!$ended && $notFinalized){
+        if($notFinalized){
             $methods[$config->name.' kitöltése'] = $this->container->get('router')->generate('competition_round_quiz_write', array( 'term' => $term, 'sectionSlug' => $section->getPage()->getSlug(), 'roundSlug' => $round->getPage()->getSlug() ));
         }
 
