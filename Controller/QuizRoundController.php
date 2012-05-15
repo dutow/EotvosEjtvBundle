@@ -73,17 +73,18 @@ class QuizRoundController extends ContainerAware
 
         $dEm = $this->container->get('doctrine')->getEntityManager();
 
+
         $roundRec = $tpRep->getForTermWithSlug($term, $roundSlug);
         if(!$roundRec){
             return new Response(json_encode(array('success' => false)));
         }
-
         $sectionRec = $tpRep->getForTermWithSlug($term, $sectionSlug);
         if(!$sectionRec){
             return new Response(json_encode(array('success' => false)));
         }
 
         $config = json_decode($roundRec->getRound()->getConfig());
+
 
         if(!is_object($config)){
             return new Response(json_encode(array('success' => false)));
@@ -265,8 +266,8 @@ class QuizRoundController extends ContainerAware
         $submission = $sr->getLastByUserAndRound($user, $roundRec->getRound());
         if($submission == null){
             $submission = new Submission();
-            $submission->setRoundId($roundRec->getRound());
-            $submission->setUserId($user);
+            $submission->setRound($roundRec->getRound());
+            $submission->setUser($user);
             $data  =array('last-modified' => new \DateTime());
             foreach($config->tasks as $tk => $task){
                 if(isset($task->defaults)) foreach($task->defaults as $k => $v){
@@ -275,6 +276,8 @@ class QuizRoundController extends ContainerAware
             }
             $submission->setData(json_encode($data));
             $dEm->persist($submission);
+            $dEm->flush();
+            $submission->setRound($roundRec->getRound());
             $dEm->flush();
         }
         $time_until = $submission->getSubmittedAt()->add(new \DateInterval('PT'.$config->time.'M'));

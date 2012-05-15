@@ -45,7 +45,7 @@
 <script type="text/javascript">
 function saveForm(){
   $('.qstatus span').text('MENTÉS ALATT');
-  $.post('{{ url('competition_round_quiz_submit', { 'term': 2011, 'roundSlug': round.page.slug, 'sectionSlug': section.page.slug } ) }}', $('#qform').serialize(), function(data){
+  $.post('{{ url('competition_round_quiz_submit', { 'term': term.name, 'roundSlug': round.page.slug, 'sectionSlug': section.page.slug } ) }}', $('#qform').serialize(), function(data){
     if(data.success){
       $('.qstatus span').text('MENTVE');
     }else{
