@@ -36,9 +36,9 @@ class PostalcodeControllerTest extends ModelWebTestCase
 
         $crawler = $client->request('GET', '/ajax/postalcode/8900');
         $response = json_decode($client->getResponse()->getContent(), true);
-        $this->assertEquals($response['prefix'], '8900');
-        $this->assertEquals(count($response['results']), 1);
-        $this->assertEquals($response['results'][0]['code'], '8900A');
+        $this->assertEquals('8900', $response['prefix']);
+        $this->assertEquals(1, count($response['results']));
+        $this->assertEquals('8900A', $response['results'][0]['code']);
         $this->assertEquals($response['results'][0]['name'], 'Zalaegerszeg');
     }
 
