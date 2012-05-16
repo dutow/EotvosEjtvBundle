@@ -89,8 +89,10 @@ class InfoType
      * 
      * @return array ordered standing
      */
-    public function orderStanding($standing, $config)
+    public function orderStanding($standing, $round)
     {
+        $config = json_decode($round->getConfig(), true);
+
         foreach ($config["tasks"] as $task) {
             if ($task["type"]=="scaled") { // this is a scaled problem => normalzie it!
 
