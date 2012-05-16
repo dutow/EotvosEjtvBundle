@@ -12,3 +12,15 @@ services:
     class: Eotvos\EjtvBundle\Controller\QuizRoundController
     calls:
       - [ setContainer, [@service_container] ]
+
+  eotvos.versenyr.roundtype.info:
+    class: Eotvos\EjtvBundle\RoundType\InfoType
+    tags:
+      - { name: eotvos.versenyr.roundtype }
+    calls:
+      - [ setContainer, [@service_container] ]
+
+  eotvos.versenyr.round.info:
+    class: Eotvos\EjtvBundle\Controller\InfocontestRoundController
+    calls:
+      - [ setContainer, [@service_container] ]

@@ -1,4 +1,4 @@
-{% extends 'EotvosVersenyBundle::base.html.twig'  %}
+{% extends 'EotvosVersenyrBundle::base.html.twig'  %}
 {% set active_menu = 'szekciok' %}
 {% set threecol = true %}
 {% set fbbox = false %}
@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block rbody %}
-  {% include 'EotvosVersenyBundle:Competition:section_sidebar.html.twig' with { 'page' : section.page } %}
+  {% include 'EotvosVersenyrBundle:Competition:section_sidebar.html.twig' with { 'page' : section.page } %}
 {% endblock %}
 
 {% block breadcrumb %}
@@ -49,13 +49,13 @@
       {% for kk,p in row['children'] %}
         {% if p['value'] > 0 %}
           {% if p['cansubmit'] %}
-        <td><a href="{{ url('competition_round_infocontest_upload', { 'term': 2011, 'sectionSlug' : section.page.slug, 'roundSlug': round.page.slug, 'task': row['sn'], 'id': kk }) }}">{{ p['value'] }}</a></td>
+        <td><a href="{{ url('competition_round_infocontest_upload', { 'term': term.name, 'sectionSlug' : section.page.slug, 'roundSlug': round.page.slug, 'task': row['sn'], 'id': kk }) }}">{{ p['value'] }}</a></td>
           {% else %}
         <td>{{ p['value'] }}</td>
           {% endif %}
         {% else %}
           {% if p['cansubmit'] %}
-        <td><a style="text-decoration: none;" href="{{ url('competition_round_infocontest_upload', { 'term': 2011, 'sectionSlug' : section.page.slug, 'roundSlug': round.page.slug, 'task': row['sn'], 'id': kk }) }}">--</a></td>
+        <td><a style="text-decoration: none;" href="{{ url('competition_round_infocontest_upload', { 'term': term.name, 'sectionSlug' : section.page.slug, 'roundSlug': round.page.slug, 'task': row['sn'], 'id': kk }) }}">--</a></td>
           {% else %}
         <td>--</td>
           {% endif %}

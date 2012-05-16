@@ -1,6 +1,6 @@
 <?php
 
-namespace Eotvos\VersenyBundle\Form;
+namespace Eotvos\EjtvBundle\Form;
 
 use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\File;
